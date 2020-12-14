@@ -4,12 +4,13 @@ for(let button of buttons) {
 
         button.addEventListener("click", function () {
             console.log("click");
-            let id = button.getAttribute("data-delete-id");
-            fetch("PHP/deleteButton.php?id=" + id, myInit)
+           console.log(document.getElementById('id').value)
+            let id =document.getElementById('id').value;
+           console.log(id);
+            fetch("PHP/addUser.php?id=" + id, myInit)
                 .then(function (response) {
                     response.text().then(function (text) {
                         console.log(text);
-                        eraseButton(text)
                     });
                 })
 
@@ -25,11 +26,14 @@ function eraseButton  (id){
 
 }
 
-let myheaders = new Headers();
+let headers = new Headers({
+    "Content-Type" : "multipart/form-data;boundary=something"
+});
+
 
 let myInit = {
-    method: 'GET',
-    headers: myheaders,
+    method: 'POST',
+    headers: headers,
     mode:'cors',
     cache:'default'
 };
