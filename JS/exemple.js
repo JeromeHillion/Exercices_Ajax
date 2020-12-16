@@ -1,39 +1,28 @@
-//efface les boutons
-let buttons= document.getElementsByTagName("Button");
-for(let button of buttons) {
+let form = document.getElementById("register-form")
 
-        button.addEventListener("click", function () {
-            console.log("click");
-           console.log(document.getElementById('id').value)
-            let id =document.getElementById('id').value;
-           console.log(id);
-            fetch("PHP/addUser.php?id=" + id, myInit)
-                .then(function (response) {
-                    response.text().then(function (text) {
-                        console.log(text);
-                    });
-                })
+form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    let name = document.getElementById('name').value;
+    let firstname = document.getElementById('firstname').value;
+    let password = document.getElementById('password').value;
+    let email = document.getElementById('email').value;
+    const formData = new FormData(this);
+    formData.append('name', name);
+    formData.append('firstname', firstname);
+    formData.append('password', password);
+    formData.append('email', email);
 
-                /*.catch(alert("Erreur !"));*/
-        })
-
-};
-
-
-function eraseButton  (id){
-    let tr = document.getElementById(id);
-    tr.parentNode.removeChild(tr);
-
-}
-
-let headers = new Headers({
-    "Content-Type" : "multipart/form-data;boundary=something"
+    fetch('PHP/addUser.php', {
+        method: 'post',
+        body: formData
+    }).then(function (response) {
+        return response.text();
+    }).then(function (text) {
+        console.log(text);
+    }).catch(function (error) {
+        console.error(error)
+    })
 });
 
 
-let myInit = {
-    method: 'POST',
-    headers: headers,
-    mode:'cors',
-    cache:'default'
-};
+
