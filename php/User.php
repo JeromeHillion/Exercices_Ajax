@@ -1,16 +1,23 @@
 <?php
 
-require_once 'Database.php';
-$database = new Database();
-$database->connexion();
+
 
 class User
 {
-    private $name;
-    private $firstName;
-    private $peudonyme;
-    private $email;
-    private $password;
+    protected string $name;
+    protected string $firstName;
+    protected string $pseudonyme;
+    protected string $email;
+    protected string $password;
+
+    public function __construct(string $name, string $firstName, string $pseudonyme, string $email, string $password)
+    {
+        $this->$name;
+        $this->$firstName;
+        $this->$pseudonyme;
+        $this-> $email;
+        $this->$password;
+    }
 
     /**
      * @return mixed
